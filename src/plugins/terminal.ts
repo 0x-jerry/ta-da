@@ -1,4 +1,4 @@
-import { TickTickRenderer, TypeItem, TypeItemType } from '../core'
+import { type TickTickRenderer, type TypeItem, TypeItemType } from '../core'
 
 export function createTerminalRenderer() {
   const core: TickTickRenderer = {

@@ -1,4 +1,4 @@
-import { TypeItem, TypeItemType, TickTickRenderer } from '../core'
+import { type TypeItem, TypeItemType, type TickTickRenderer } from '../core'
 
 export function createHtmlRenderer() {
   const opt = {

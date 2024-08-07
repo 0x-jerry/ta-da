@@ -1,17 +1,17 @@
 import {
-  Promisable,
-  PromiseInstance,
-  createPromiseInstance,
+  type Awaitable,
+  type PromiseInstance,
+  createPromise,
   sleep,
-  Optional,
-  is,
+  type Optional,
+  isNullish,
 } from '@0x-jerry/utils'
 import { randomRange } from './utils'
 import { createTerminalRenderer } from './plugins'
 
 export interface TickTickRenderer {
-  split(str: string): Promisable<TypeItem[]>
-  render(item: TypeItem, ctx: TickTick): Promisable<void>
+  split(str: string): Awaitable<TypeItem[]>
+  render(item: TypeItem, ctx: TickTick): Awaitable<void>
   getDelay?(item: TypeItem): Optional<number>
   clear?(): void
 }
@@ -102,7 +102,7 @@ export class TickTick<Renderer extends TickTickRenderer = TickTickRenderer> {
     if (this.isPlaying) return
 
     if (!this.#ins?.isPending) {
-      this.#ins = createPromiseInstance()
+      this.#ins = createPromise()
     }
 
     this.isPlaying = true
@@ -131,7 +131,7 @@ export class TickTick<Renderer extends TickTickRenderer = TickTickRenderer> {
   #getDelay(item: TypeItem) {
     const delay = item.delay ?? this.renderer.getDelay?.(item)
 
-    if (!is.nullish(delay)) {
+    if (!isNullish(delay)) {
       return delay
     }
 

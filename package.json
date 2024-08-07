@@ -1,5 +1,5 @@
 {
-  "name": "ticktick",
+  "name": "ta-da",
   "version": "0.0.0",
   "description": "Type character effect",
   "main": "src/index.ts",
@@ -7,14 +7,6 @@
   "engines": {
     "node": ">= 18"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/0x-jerry/ticktick.git"
-  },
-  "bugs": {
-    "url": "https://github.com/0x-jerry/ticktick/issues"
-  },
-  "homepage": "https://github.com/0x-jerry/ticktick#readme",
   "scripts": {
     "dev": "tsx test/dev.ts",
     "test": "vitest run",
@@ -35,16 +27,14 @@
     "dist"
   ],
   "devDependencies": {
-    "@0x-jerry/x-release": "^0.3.6",
-    "@types/node": "^18.11.18",
-    "@vitest/coverage-c8": "^0.27.2",
-    "tsup": "^6.5.0",
-    "tsx": "^3.12.2",
-    "typescript": "^4.9.4",
-    "vitest": "^0.27.2",
-    "vitest-github-actions-reporter": "^0.9.0"
+    "@0x-jerry/x-release": "^2.2.2",
+    "@types/node": "^22.1.0",
+    "tsup": "^8.2.4",
+    "tsx": "^4.16.5",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   },
   "dependencies": {
-    "@0x-jerry/utils": "^1.13.0"
+    "@0x-jerry/utils": "^3.0.0"
   }
 }
