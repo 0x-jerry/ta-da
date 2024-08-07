@@ -1,5 +1,5 @@
 {
-  "name": "ta-da",
+  "name": "@0x-jerry/ta-da",
   "version": "0.1.1",
   "description": "Type character effect",
   "main": "src/index.ts",

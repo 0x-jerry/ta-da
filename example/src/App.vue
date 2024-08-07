@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Tada, createHtmlRenderer } from 'ta-da'
+import { Tada, createHtmlRenderer } from '@0x-jerry/ta-da'
 import { computed, onMounted, reactive, ref } from 'vue'
 import { marked } from 'marked'
 
