@@ -30,11 +30,12 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
     this.isPlaying = false
   }
 
-  play() {
+  async play() {
     if (this.isPlaying) return
     this.isPlaying = true
 
-    return this.#continuePlay()
+    await this.#continuePlay()
+    this.isPlaying = false
   }
 
   complete() {
