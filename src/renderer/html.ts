@@ -1,7 +1,6 @@
+import { ensureArray } from '@0x-jerry/utils'
 import { type TadaItem, type TadaRenderer, TadaItemType } from '../types'
 import { splitText } from './_utils'
-
-export interface HtmlTadaItem extends TadaItem {}
 
 export function createHtmlRenderer() {
   const opt = {
@@ -9,7 +8,7 @@ export function createHtmlRenderer() {
     cache: '',
   }
 
-  const core: TadaRenderer<HtmlTadaItem> = {
+  const core: TadaRenderer = {
     split(str) {
       const items: TadaItem[] = []
 
@@ -20,13 +19,15 @@ export function createHtmlRenderer() {
 
       return items
     },
-    render(item) {
-      opt.cache += item.content
+    render(items) {
+      for (const item of ensureArray(items)) {
+        opt.cache += item.content
+      }
 
       if (!opt.el) return
       opt.el.innerHTML = opt.cache
     },
-    clear() {
+    reset() {
       opt.cache = ''
     },
   }

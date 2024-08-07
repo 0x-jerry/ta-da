@@ -4,7 +4,7 @@ import { createTerminalRenderer } from './renderer'
 import { type TadaRenderer, type TadaItem, type TadaOption, TadaItemType } from './types'
 
 export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
-  queue: TadaItem[] = []
+  #queue: TadaItem[] = []
 
   isPlaying = false
 
@@ -42,27 +42,36 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
     this.#play()
   }
 
+  async complete() {
+    this.pause()
+    const items = this.#queue.slice(this.cursor)
+    await this.renderer.render(items)
+    this.cursor = this.#queue.length
+
+    this.#ins?.resolve()
+  }
+
   async type(str: string) {
-    this.clear()
+    this.reset()
 
     if (this.option.autoPlay) {
       this.#prepareForPlay()
     }
 
     const items = await this.renderer.split(str)
-    this.queue.push(...items)
+    this.#queue.push(...items)
 
     if (this.option.autoPlay) {
       await this.#play()
     }
   }
 
-  clear() {
+  reset() {
     this.pause()
     this.cursor = 0
-    this.queue = []
+    this.#queue = []
 
-    this.renderer.clear?.()
+    this.renderer.reset?.()
   }
 
   async #prepareForPlay() {
@@ -76,16 +85,16 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
   }
 
   async #play() {
-    while (this.cursor < this.queue.length) {
+    while (this.cursor < this.#queue.length) {
       // paused
       if (!this.isPlaying) {
         this.#ins?.resolve()
         break
       }
 
-      const item = this.queue[this.cursor]
+      const item = this.#queue[this.cursor]
 
-      await this.renderer.render(item, this)
+      await this.renderer.render(item)
 
       await sleep(this.#getDelay(item))
 

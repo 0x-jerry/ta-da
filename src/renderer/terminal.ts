@@ -1,3 +1,4 @@
+import { ensureArray } from '@0x-jerry/utils'
 import { type TadaRenderer, type TadaItem, TadaItemType } from '../types'
 import { nextChar } from './_utils'
 
@@ -51,8 +52,10 @@ export function createTerminalRenderer() {
 
       return items
     },
-    render(item: TadaItem) {
-      process.stdout.write(item.content)
+    render(items) {
+      for (const item of ensureArray(items)) {
+        process.stdout.write(item.content)
+      }
     },
   }
 

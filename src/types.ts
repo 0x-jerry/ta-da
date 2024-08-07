@@ -1,11 +1,10 @@
-import type { Awaitable, Optional } from '@0x-jerry/utils'
-import type { Tada } from './core'
+import type { Arrayable, Awaitable, Optional } from '@0x-jerry/utils'
 
 export interface TadaRenderer<U extends TadaItem = TadaItem> {
   split(str: string): Awaitable<U[]>
-  render(item: U, ctx: Tada): Awaitable<void>
+  render(item: Arrayable<U>): Awaitable<void>
   getDelay?(item: U): Optional<number>
-  clear?(): void
+  reset?(): void
 }
 
 export enum TadaItemType {
