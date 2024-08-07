@@ -18,11 +18,11 @@ export function splitText(str: string): string[] {
  * Get next character, support emoji
  *
  * ```ts
- * nextChar('🍺123‘) => '🍺'
- * nextChar('‘) => undefined
+ * firstChar('🍺123‘) => '🍺'
+ * firstChar('‘) => undefined
  * ```
  */
-export function nextChar(str: string) {
+export function firstChar(str: string) {
   const segments = new Intl.Segmenter().segment(str)
   const iter = segments[Symbol.iterator]()
   const data: Intl.SegmentData | undefined = iter.next().value

@@ -1,12 +1,12 @@
-import { nextChar, splitText } from './_utils'
+import { firstChar, splitText } from './_utils'
 
-describe('#nextChar', () => {
+describe('#firstChar', () => {
   it('should get next char', () => {
-    expect(nextChar('123')).toBe('1')
+    expect(firstChar('123')).toBe('1')
   })
 
   it('should support emoji', () => {
-    expect(nextChar('🍺1')).toBe('🍺')
+    expect(firstChar('🍺1')).toBe('🍺')
   })
 })
 

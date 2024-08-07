@@ -1,6 +1,6 @@
 import { ensureArray } from '@0x-jerry/utils'
 import { type TadaRenderer, type TadaItem, TadaItemType } from '../types'
-import { nextChar } from './_utils'
+import { firstChar } from './_utils'
 
 export function createTerminalRenderer() {
   const core: TadaRenderer = {
@@ -12,7 +12,7 @@ export function createTerminalRenderer() {
       const ctx = {
         cursor: 0,
         get current() {
-          return nextChar(this.subStr()) || ''
+          return firstChar(this.subStr()) || ''
         },
         subStr() {
           return str.slice(ctx.cursor)
