@@ -1,6 +1,6 @@
 {
   "name": "ta-da",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Type character effect",
   "main": "src/index.ts",
   "type": "module",
