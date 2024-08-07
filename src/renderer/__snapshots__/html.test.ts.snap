@@ -1,0 +1,170 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`terminal renderer > should split html correctly 1`] = `
+[
+  {
+    "content": "<DIV>",
+    "type": "invisible",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "h",
+    "type": "text",
+  },
+  {
+    "content": "e",
+    "type": "text",
+  },
+  {
+    "content": "l",
+    "type": "text",
+  },
+  {
+    "content": "l",
+    "type": "text",
+  },
+  {
+    "content": "o",
+    "type": "text",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "<B>",
+    "type": "invisible",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "w",
+    "type": "text",
+  },
+  {
+    "content": "o",
+    "type": "text",
+  },
+  {
+    "content": "r",
+    "type": "text",
+  },
+  {
+    "content": "l",
+    "type": "text",
+  },
+  {
+    "content": "d",
+    "type": "text",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "<EM>",
+    "type": "invisible",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "e",
+    "type": "text",
+  },
+  {
+    "content": "e",
+    "type": "text",
+  },
+  {
+    "content": "e",
+    "type": "text",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "</EM>",
+    "type": "invisible",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "w",
+    "type": "text",
+  },
+  {
+    "content": "o",
+    "type": "text",
+  },
+  {
+    "content": "r",
+    "type": "text",
+  },
+  {
+    "content": "l",
+    "type": "text",
+  },
+  {
+    "content": "d",
+    "type": "text",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "</B>",
+    "type": "invisible",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "🚀",
+    "type": "text",
+  },
+  {
+    "content": "🚀",
+    "type": "text",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "1",
+    "type": "text",
+  },
+  {
+    "content": "2",
+    "type": "text",
+  },
+  {
+    "content": "3",
+    "type": "text",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "</DIV>",
+    "type": "invisible",
+  },
+]
+`;
