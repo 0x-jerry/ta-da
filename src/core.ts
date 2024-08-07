@@ -1,4 +1,4 @@
-import { type PromiseInstance, createPromise, sleep, isNullish } from '@0x-jerry/utils'
+import { sleep, isNullish, type SleepResult } from '@0x-jerry/utils'
 import { randomRange } from './utils'
 import { createTerminalRenderer } from './renderer'
 import { type TadaRenderer, type TadaItem, type TadaOption, TadaItemType } from './types'
@@ -18,6 +18,8 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
 
   source = ''
 
+  #timer?: SleepResult
+
   constructor(opt: TadaOption<Renderer> = {}) {
     this.renderer = opt.renderer || (createTerminalRenderer() as Renderer)
 
@@ -27,6 +29,8 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
   }
 
   pause() {
+    this.#timer?.cancel()
+    this.#timer = undefined
     this.isPlaying = false
   }
 
@@ -35,6 +39,7 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
     this.isPlaying = true
 
     await this.#continuePlay()
+    this.#timer = undefined
     this.isPlaying = false
   }
 
@@ -54,11 +59,10 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
   #reset() {
     this.pause()
     this.cursor = 0
-    this.#queue = []
     this.isPlaying = false
 
     const items = this.renderer.split(this.source)
-    this.#queue.push(...items)
+    this.#queue = items
 
     this.renderer.reset?.()
   }
@@ -75,7 +79,13 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
       this.renderer.render(item)
       this.cursor++
 
-      await sleep(this.#getDelay(item))
+      this.#timer = sleep(this.#getDelay(item))
+
+      try {
+        await this.#timer
+      } catch (_error) {
+        break
+      }
     }
   }
 
