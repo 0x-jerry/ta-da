@@ -1,43 +1,10 @@
-import {
-  type Awaitable,
-  type PromiseInstance,
-  createPromise,
-  sleep,
-  type Optional,
-  isNullish,
-} from '@0x-jerry/utils'
+import { type PromiseInstance, createPromise, sleep, isNullish } from '@0x-jerry/utils'
 import { randomRange } from './utils'
 import { createTerminalRenderer } from './plugins'
-
-export interface TadaRenderer {
-  split(str: string): Awaitable<TypeItem[]>
-  render(item: TypeItem, ctx: Tada): Awaitable<void>
-  getDelay?(item: TypeItem): Optional<number>
-  clear?(): void
-}
-
-export enum TadaItemType {
-  Space = 'space',
-  Invisible = 'invisible',
-  Text = 'text',
-}
-
-export interface TypeItem {
-  type: TadaItemType | string
-  content: string
-  delay?: number
-}
-
-export interface TadaOption<T extends TadaRenderer = TadaRenderer> {
-  renderer?: T
-  /**
-   * @default true
-   */
-  autoPlay?: boolean
-}
+import { type TadaRenderer, type TadaItem, type TadaOption, TadaItemType } from './types'
 
 export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
-  queue: TypeItem[] = []
+  queue: TadaItem[] = []
 
   isPlaying = false
 
@@ -128,7 +95,7 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
     this.#ins?.resolve()
   }
 
-  #getDelay(item: TypeItem) {
+  #getDelay(item: TadaItem) {
     const delay = item.delay ?? this.renderer.getDelay?.(item)
 
     if (!isNullish(delay)) {

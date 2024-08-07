@@ -1,4 +1,6 @@
-import { type TypeItem, TadaItemType, type TadaRenderer } from '../core'
+import { type TadaItem, type TadaRenderer, TadaItemType } from '../types'
+
+export interface HtmlTadaItem extends TadaItem {}
 
 export function createHtmlRenderer() {
   const opt = {
@@ -6,22 +8,21 @@ export function createHtmlRenderer() {
     cache: '',
   }
 
-  const core: TadaRenderer = {
+  const core: TadaRenderer<HtmlTadaItem> = {
     split(str) {
-      const items: TypeItem[] = []
+      const items: TadaItem[] = []
 
-      const d = document.createElement('div')
-      d.innerHTML = str
+      const parsedDom = document.createElement('div')
+      parsedDom.innerHTML = str
 
-      d.childNodes.forEach((item) => splitHtml(item, items))
+      parsedDom.childNodes.forEach((item) => splitHtml(item, items))
 
       return items
     },
     render(item) {
-      if (!opt.el) return
-
       opt.cache += item.content
 
+      if (!opt.el) return
       opt.el.innerHTML = opt.cache
     },
     clear() {
@@ -41,7 +42,7 @@ export function createHtmlRenderer() {
   }
 }
 
-function splitHtml(node: Node, items: TypeItem[]) {
+function splitHtml(node: Node, items: TadaItem[]) {
   if (node.nodeType === document.TEXT_NODE) {
     const nodes = (node.textContent || '').split('').map((n) => {
       return {

@@ -1,11 +1,11 @@
-import { type TadaRenderer, type TypeItem, TadaItemType } from '../core'
+import { type TadaRenderer, type TadaItem, TadaItemType } from '../types'
 
 export function createTerminalRenderer() {
   const core: TadaRenderer = {
     split(str: string) {
       const isTerminalStyleChar = /^(\x1b\[\d+m)+/g
 
-      const items: TypeItem[] = []
+      const items: TadaItem[] = []
 
       const ctx = {
         cursor: 0,
@@ -48,7 +48,7 @@ export function createTerminalRenderer() {
 
       return items
     },
-    render(item: TypeItem) {
+    render(item: TadaItem) {
       process.stdout.write(item.content)
     },
   }
