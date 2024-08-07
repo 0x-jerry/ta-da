@@ -1,6 +1,6 @@
 import { type PromiseInstance, createPromise, sleep, isNullish } from '@0x-jerry/utils'
 import { randomRange } from './utils'
-import { createTerminalRenderer } from './plugins'
+import { createTerminalRenderer } from './renderer'
 import { type TadaRenderer, type TadaItem, type TadaOption, TadaItemType } from './types'
 
 export class Tada<Renderer extends TadaRenderer = TadaRenderer> {

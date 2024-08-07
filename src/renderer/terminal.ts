@@ -1,4 +1,5 @@
 import { type TadaRenderer, type TadaItem, TadaItemType } from '../types'
+import { nextChar } from './_utils'
 
 export function createTerminalRenderer() {
   const core: TadaRenderer = {
@@ -10,7 +11,7 @@ export function createTerminalRenderer() {
       const ctx = {
         cursor: 0,
         get current() {
-          return str[ctx.cursor]
+          return nextChar(this.subStr()) || ''
         },
         subStr() {
           return str.slice(ctx.cursor)
@@ -30,19 +31,21 @@ export function createTerminalRenderer() {
             content: char,
           })
         } else {
-          if (/\s/.test(ctx.current)) {
+          const currentChar = ctx.current
+
+          if (/\s/.test(currentChar)) {
             items.push({
               type: TadaItemType.Space,
-              content: ctx.current,
+              content: currentChar,
             })
           } else {
             items.push({
               type: TadaItemType.Text,
-              content: ctx.current,
+              content: currentChar,
             })
           }
 
-          ctx.cursor++
+          ctx.cursor += currentChar.length
         }
       }
 

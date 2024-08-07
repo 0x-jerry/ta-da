@@ -50,5 +50,37 @@ exports[`terminal renderer > should split string correctly 1`] = `
     "content": "[22m",
     "type": "invisible",
   },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "🚀",
+    "type": "text",
+  },
+  {
+    "content": " ",
+    "type": "space",
+  },
+  {
+    "content": "e",
+    "type": "text",
+  },
+  {
+    "content": "m",
+    "type": "text",
+  },
+  {
+    "content": "o",
+    "type": "text",
+  },
+  {
+    "content": "j",
+    "type": "text",
+  },
+  {
+    "content": "i",
+    "type": "text",
+  },
 ]
 `;

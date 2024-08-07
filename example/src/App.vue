@@ -10,7 +10,7 @@ const tt = new Tada({
 })
 
 const data = reactive({
-  text: 'Hello, **This is a `test`**, `very cool`! ~~and~~ #beautiful! ',
+  text: 'Hello, **This is a `test`**, and it\'s `very cool`! 🚀🚀 ~~and~~ #beautiful! ',
 })
 
 const markdownString = computed(() => marked(data.text, { async: false }) as string)

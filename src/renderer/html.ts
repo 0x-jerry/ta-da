@@ -1,4 +1,5 @@
 import { type TadaItem, type TadaRenderer, TadaItemType } from '../types'
+import { splitText } from './_utils'
 
 export interface HtmlTadaItem extends TadaItem {}
 
@@ -44,7 +45,7 @@ export function createHtmlRenderer() {
 
 function splitHtml(node: Node, items: TadaItem[]) {
   if (node.nodeType === document.TEXT_NODE) {
-    const nodes = (node.textContent || '').split('').map((n) => {
+    const nodes = splitText(node.textContent || '').map((n) => {
       return {
         type: /\s/.test(n) ? TadaItemType.Space : TadaItemType.Text,
         content: n,
