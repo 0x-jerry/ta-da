@@ -13,6 +13,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "build": "tsup src/index.ts --format esm --dts --clean",
+    "prepublishOnly": "npm run build",
     "release": "x-release"
   },
   "license": "MIT",
