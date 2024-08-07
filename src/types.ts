@@ -1,8 +1,8 @@
-import type { Arrayable, Awaitable, Optional } from '@0x-jerry/utils'
+import type { Arrayable, Optional } from '@0x-jerry/utils'
 
 export interface TadaRenderer<U extends TadaItem = TadaItem> {
-  split(str: string): Awaitable<U[]>
-  render(item: Arrayable<U>): Awaitable<void>
+  split(str: string): U[]
+  render(item: Arrayable<U>): void
   getDelay?(item: U): Optional<number>
   reset?(): void
 }

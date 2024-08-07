@@ -8,20 +8,15 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
 
   isPlaying = false
 
-  #ins?: PromiseInstance<void>
-
   /**
    * current playing index
    */
   cursor = 0
 
-  get playing() {
-    return this.#ins?.instance
-  }
-
   renderer: Renderer
-
   option: Required<Omit<TadaOption, 'renderer'>>
+
+  source = ''
 
   constructor(opt: TadaOption<Renderer> = {}) {
     this.renderer = opt.renderer || (createTerminalRenderer() as Renderer)
@@ -37,71 +32,50 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
 
   play() {
     if (this.isPlaying) return
+    this.isPlaying = true
 
-    this.#prepareForPlay()
-    this.#play()
+    return this.#continuePlay()
   }
 
-  async complete() {
+  complete() {
     this.pause()
     const items = this.#queue.slice(this.cursor)
-    await this.renderer.render(items)
+    this.renderer.render(items)
     this.cursor = this.#queue.length
-
-    this.#ins?.resolve()
   }
 
-  async type(str: string) {
-    this.reset()
+  reset(str: string = '') {
+    this.source = str
 
-    if (this.option.autoPlay) {
-      this.#prepareForPlay()
-    }
-
-    const items = await this.renderer.split(str)
-    this.#queue.push(...items)
-
-    if (this.option.autoPlay) {
-      await this.#play()
-    }
+    this.#reset()
   }
 
-  reset() {
+  #reset() {
     this.pause()
     this.cursor = 0
     this.#queue = []
+    this.isPlaying = false
+
+    const items = this.renderer.split(this.source)
+    this.#queue.push(...items)
 
     this.renderer.reset?.()
   }
 
-  async #prepareForPlay() {
-    if (this.isPlaying) return
-
-    if (!this.#ins?.isPending) {
-      this.#ins = createPromise()
-    }
-
-    this.isPlaying = true
-  }
-
-  async #play() {
+  async #continuePlay() {
     while (this.cursor < this.#queue.length) {
       // paused
       if (!this.isPlaying) {
-        this.#ins?.resolve()
         break
       }
 
       const item = this.#queue[this.cursor]
 
-      await this.renderer.render(item)
+      this.renderer.render(item)
+      this.cursor++
 
       await sleep(this.#getDelay(item))
-
-      this.cursor++
     }
-
-    this.#ins?.resolve()
   }
 
   #getDelay(item: TadaItem) {

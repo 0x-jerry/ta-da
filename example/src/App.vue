@@ -23,7 +23,8 @@ onMounted(() => {
 
 async function type() {
   const s = await marked(data.text)
-  tt.type(s)
+  tt.reset(s)
+  await tt.play()
 }
 </script>
 
