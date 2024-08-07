@@ -1,6 +1,6 @@
-import { TickTick, createTerminalRenderer } from '../src'
+import { Tada, createTerminalRenderer } from '../src'
 
-const ti = new TickTick({
+const ti = new Tada({
   renderer: createTerminalRenderer(),
 })
 

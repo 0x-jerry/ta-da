@@ -1,4 +1,4 @@
-import { type TypeItem, TypeItemType, type TickTickRenderer } from '../core'
+import { type TypeItem, TadaItemType, type TadaRenderer } from '../core'
 
 export function createHtmlRenderer() {
   const opt = {
@@ -6,7 +6,7 @@ export function createHtmlRenderer() {
     cache: '',
   }
 
-  const core: TickTickRenderer = {
+  const core: TadaRenderer = {
     split(str) {
       const items: TypeItem[] = []
 
@@ -45,7 +45,7 @@ function splitHtml(node: Node, items: TypeItem[]) {
   if (node.nodeType === document.TEXT_NODE) {
     const nodes = (node.textContent || '').split('').map((n) => {
       return {
-        type: /\s/.test(n) ? TypeItemType.Space : TypeItemType.Text,
+        type: /\s/.test(n) ? TadaItemType.Space : TadaItemType.Text,
         content: n,
       }
     })
@@ -56,14 +56,14 @@ function splitHtml(node: Node, items: TypeItem[]) {
 
   if (node.nodeType === document.ELEMENT_NODE) {
     items.push({
-      type: TypeItemType.Invisible,
+      type: TadaItemType.Invisible,
       content: `<${node.nodeName}>`,
     })
 
     node.childNodes.forEach((item) => splitHtml(item, items))
 
     items.push({
-      type: TypeItemType.Invisible,
+      type: TadaItemType.Invisible,
       content: `</${node.nodeName}>`,
     })
 

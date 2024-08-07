@@ -1,7 +1,7 @@
-import { type TickTickRenderer, type TypeItem, TypeItemType } from '../core'
+import { type TadaRenderer, type TypeItem, TadaItemType } from '../core'
 
 export function createTerminalRenderer() {
-  const core: TickTickRenderer = {
+  const core: TadaRenderer = {
     split(str: string) {
       const isTerminalStyleChar = /^(\x1b\[\d+m)+/g
 
@@ -26,18 +26,18 @@ export function createTerminalRenderer() {
           ctx.cursor += hit.length
 
           items.push({
-            type: TypeItemType.Invisible,
+            type: TadaItemType.Invisible,
             content: char,
           })
         } else {
           if (/\s/.test(ctx.current)) {
             items.push({
-              type: TypeItemType.Space,
+              type: TadaItemType.Space,
               content: ctx.current,
             })
           } else {
             items.push({
-              type: TypeItemType.Text,
+              type: TadaItemType.Text,
               content: ctx.current,
             })
           }

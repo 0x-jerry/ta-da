@@ -9,26 +9,26 @@ import {
 import { randomRange } from './utils'
 import { createTerminalRenderer } from './plugins'
 
-export interface TickTickRenderer {
+export interface TadaRenderer {
   split(str: string): Awaitable<TypeItem[]>
-  render(item: TypeItem, ctx: TickTick): Awaitable<void>
+  render(item: TypeItem, ctx: Tada): Awaitable<void>
   getDelay?(item: TypeItem): Optional<number>
   clear?(): void
 }
 
-export enum TypeItemType {
+export enum TadaItemType {
   Space = 'space',
   Invisible = 'invisible',
   Text = 'text',
 }
 
 export interface TypeItem {
-  type: TypeItemType | string
+  type: TadaItemType | string
   content: string
   delay?: number
 }
 
-export interface TickTickOption<T extends TickTickRenderer = TickTickRenderer> {
+export interface TadaOption<T extends TadaRenderer = TadaRenderer> {
   renderer?: T
   /**
    * @default true
@@ -36,7 +36,7 @@ export interface TickTickOption<T extends TickTickRenderer = TickTickRenderer> {
   autoPlay?: boolean
 }
 
-export class TickTick<Renderer extends TickTickRenderer = TickTickRenderer> {
+export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
   queue: TypeItem[] = []
 
   isPlaying = false
@@ -54,9 +54,9 @@ export class TickTick<Renderer extends TickTickRenderer = TickTickRenderer> {
 
   renderer: Renderer
 
-  option: Required<Omit<TickTickOption, 'renderer'>>
+  option: Required<Omit<TadaOption, 'renderer'>>
 
-  constructor(opt: TickTickOption<Renderer> = {}) {
+  constructor(opt: TadaOption<Renderer> = {}) {
     this.renderer = opt.renderer || (createTerminalRenderer() as Renderer)
 
     this.option = {
@@ -136,11 +136,11 @@ export class TickTick<Renderer extends TickTickRenderer = TickTickRenderer> {
     }
 
     switch (item.type) {
-      case TypeItemType.Invisible:
+      case TadaItemType.Invisible:
         return 0
-      case TypeItemType.Text:
+      case TadaItemType.Text:
         return randomRange(30, 50)
-      case TypeItemType.Space:
+      case TadaItemType.Space:
         return randomRange(100, 100)
 
       default:
