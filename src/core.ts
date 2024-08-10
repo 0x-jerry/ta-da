@@ -24,6 +24,7 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
     this.renderer = opt.renderer || (createTerminalRenderer() as Renderer)
 
     this.option = {
+      typeSpeed: opt.typeSpeed ?? ((item) => getDelay(item, this.renderer)),
       autoPlay: opt.autoPlay ?? true,
     }
   }
@@ -79,7 +80,11 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
       this.renderer.render(item)
       this.cursor++
 
-      this.#timer = sleep(this.#getDelay(item))
+      const delay =
+        typeof this.option.typeSpeed === 'number'
+          ? this.option.typeSpeed
+          : this.option.typeSpeed(item)
+      this.#timer = sleep(delay)
 
       try {
         await this.#timer
@@ -88,24 +93,24 @@ export class Tada<Renderer extends TadaRenderer = TadaRenderer> {
       }
     }
   }
+}
 
-  #getDelay(item: TadaItem) {
-    const delay = item.delay ?? this.renderer.getDelay?.(item)
+function getDelay(item: TadaItem, renderer: TadaRenderer) {
+  const delay = item.delay ?? renderer.getDelay?.(item)
 
-    if (!isNullish(delay)) {
-      return delay
-    }
+  if (!isNullish(delay)) {
+    return delay
+  }
 
-    switch (item.type) {
-      case TadaItemType.Invisible:
-        return 0
-      case TadaItemType.Text:
-        return randomRange(30, 50)
-      case TadaItemType.Space:
-        return randomRange(100, 100)
+  switch (item.type) {
+    case TadaItemType.Invisible:
+      return 0
+    case TadaItemType.Text:
+      return randomRange(10, 30)
+    case TadaItemType.Space:
+      return 10
 
-      default:
-        return randomRange(10, 50)
-    }
+    default:
+      return randomRange(10, 50)
   }
 }

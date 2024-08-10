@@ -25,4 +25,6 @@ export interface TadaOption<T extends TadaRenderer = TadaRenderer> {
    * @default true
    */
   autoPlay?: boolean
+
+  typeSpeed?: number | ((item: TadaItem) => number)
 }
